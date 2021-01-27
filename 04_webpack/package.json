@@ -1,0 +1,31 @@
+{
+  "name": "word-relay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --color",
+    "build": "webpack -w",
+    "dev": "webpack serve development"
+  },
+  "author": "ZeroCho",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "webpack-cli": "^4.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "babel-loader": "^8.1.0",
+    "bable-loader": "0.0.1-security",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "react-refresh": "^0.9.0",
+    "webpack": "^5.4.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}

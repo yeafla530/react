@@ -1,0 +1,60 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <!-- 결과 <div id="root"><button>'Like'</button></div>  -->
+  <script type="text/babel">
+    const e = React.createElement;
+    //LikeButton이라는 컴포넌트 만듦
+    class LikeButton extends React.Component {
+      //컴포넌트가 실행될 때
+      constructor(props) {
+        super(props);
+        //상태 중요!
+        this.state = {
+          liked: false,
+        }
+      }
+      //이렇게 만들겠다! 만든다x
+      render() {
+        //e(태그, HTML속성, 태그안쪽)
+        
+        //첫번째 클릭되는지 확인
+        // return e('button', { onClick: () => console.log('clicked'), type: 'submit' }, 'Like');
+        //<button onclick="() => console.log('clicked')" type: 'submit'>'Like'</button>
+
+        //두번째 함수사용
+        // return e('button', { onClick: () => { this.setState({ liked: true }) }, type: 'submit' },
+        //   this.state.liked === true ? 'Liked' : 'Like');
+
+        //세번째 babel사용 (html 문법 사용가능해짐)
+        return <button 
+        type="submit" 
+        onClick = {() => { this.setState({ liked: true })}}>
+          {this.state.liked === true ? 'Liked' : 'Like'}
+        </button>;
+        // => JSX (Javascript + XML)
+
+      }
+    }
+  </script>
+  <script type="text/babel">
+    // 렌더링
+    // 1. e는 새로운 element를 만드는것
+    // 2. 만들겠다 했던 LikeButton을 그린다
+    // ReactDOM.render(e(LikeButton), document.querySelector('#root'));
+    //div를 넣으면 comnponent 원하는 개수만큼 넣을수있음
+    ReactDOM.render(<div><LikeButton/><LikeButton/><LikeButton/><LikeButton/></div>, document.querySelector('#root'))
+  </script>
+</body>
+
+</html>

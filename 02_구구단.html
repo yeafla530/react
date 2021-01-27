@@ -1,0 +1,105 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    class GuGuDan extends React.Component {
+      // 현업에서는 constructor 거의 안씀 대신 this.state를 state로 바꿔주기
+      // constructor(props) {
+      //   //바뀌는 것 정의
+      //   super(props)
+        // this.state = {
+      state = {
+        first: Math.ceil(Math.random() * 9),
+        second: Math.ceil(Math.random() * 9),
+        value: '',
+        result: '',
+      }
+      // }
+
+      //함수 따로 뺏을 때 무조건 화살표함수 사용해야됨!
+      //function사용 시 this가 달라져버리기 때문
+      onSubmit = (e) => {
+        e.preventDefault();
+        if (parseInt(this.state.value) === this.state.first * this.state.second) {
+          //preveState : 예전 상태값을 다음 상태값에 활용할 수 있도록 함
+          //setState는 비동기 함수이기 때문에 원치않은 답이 나올 수 있음
+          //예전 값 활용할 떄는 return preveState를 사용해라
+          this.setState((preveState) => {
+            return {
+              //현재의 this.state와 바꿀 값들을 정의한 setState들
+              //헷갈릴 수 있음
+              //return api제공
+              result: '정답'+ preveState.value,
+              first: Math.ceil(Math.random() * 9),
+              second: Math.ceil(Math.random() * 9),
+              value: ''
+            }
+          })
+          this.input.focus();  
+        } else {
+          console.log(event.target.value)
+          this.setState({
+              result: '땡',
+              value: ''
+          })
+          this.input.focus(); 
+        }
+      }
+    
+      //함수를 바깥으로 빼주는 이유는 render안에 있으면
+      //render될 때마다 실행되기 때문이다
+      onChange = (e) => this.setState(
+        {value: e.target.value},
+        console.log(e.target.value)
+      )
+      //class에 선언
+      refInput;
+      
+      onRefInput = (c) => {this.refiInput = c}
+
+      render() {
+        //한글자 칠때마다 렌더링 됨 10초걸리는 작업하면 비효율적 
+        //setState에 render넣을 수 있다는 것 기억하기! 
+        console.log('렌더링')
+        //content안에 {}를 넣으면 js를 사용할 수 있다
+        //return 뒤에 () 는 빼도 되고 넣어도됨 : 그룹연산자 (우선순위 높이기)
+        return (
+          //쓸데 없는 div없애줌
+          // 1.<> : 빈태그
+          // 2.React.Fragment
+          // ref는 DOM에 직접접근 가능하게 해줌 focus로 돌아갈 수 있또록
+          <React.Fragment>
+            <div>{this.state.first} 곱하기 {this.state.second}는?</div>
+            <form onSubmit={this.onSubmit}>
+              <input 
+                ref={this.onRefInput}
+                type="number" 
+                value={this.state.value} 
+                onChange = {this.onChange}
+              />
+              <button>입력</button>
+            </form>
+            <div>{this.state.result}</div>
+          </React.Fragment>
+        );
+      }
+    }
+  </script>
+  <script type="text/babel">
+    // ReactDOM.render(<div><GuGuDan /><GuGuDan /><GuGuDan /></div>, document.querySelector('#root'))
+    ReactDOM.render(<GuGuDan />, document.querySelector('#root'))
+
+  </script>
+</body>
+
+</html>
