@@ -38,27 +38,27 @@ module.exports = {
         //babel loader에 plugin넣어주기 => babel이 최신문법을 옛날 js로 transfile할때 hot reloading기능까지 추가해줌
         plugins: [
           '@babel/plugin-proposal-class-properties',
-        //   'react-refresh/babel'
+          'react-refresh/babel'
         ]
       },
       exclude: /node_modules/
     }],
   },
   plugins: [
-    // new RefreshWebpackPlugin()
+    new RefreshWebpackPlugin()
   ],
   output: {
     //path: 실제경로, publicPath: 가상경로
     path: path.join(__dirname, 'dist'),
     filename: 'app.js',
-    // publicPath: '/dist/'//webpack-dev serve에서는 가상경로가 필요
+    publicPath: '/dist/'//webpack-dev serve에서는 가상경로가 필요
   },
   //개발 편의를 위한 서버
-//   devServer: {
-//     //결과물을 dist에 저장함
-//     publicPath: '/dist/',
-//     //hotReloading 변경점 감지
-//     hot: true
-//   }
+  devServer: {
+    //결과물을 dist에 저장함
+    publicPath: '/dist/',
+    //hotReloading 변경점 감지
+    hot: true
+  }
 
 }
