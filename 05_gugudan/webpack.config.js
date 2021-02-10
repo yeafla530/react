@@ -47,7 +47,7 @@ module.exports = {
   //plugin이 너무 많으면 느림 
   //처음엔 다 주석처리 후 오류를 보며 하나씩 추가해가기
   plugins: [
-    new webpack.LoaderOptionsPlugin({debug:true})
+    new webpack.LoaderOptionsPlugin({ debug: true })
   ],
   output: {
     path: path.join(__dirname, 'dist'),
